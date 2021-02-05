@@ -1,0 +1,150 @@
+{
+  "version": 1,
+  "cli": {
+    "defaultCollection": "@nrwl/angular"
+  },
+  "schematics": {
+    "@nrwl/angular": {
+      "application": {
+        "linter": "eslint"
+      },
+      "library": {
+        "linter": "eslint"
+      },
+      "storybook-configuration": {
+        "linter": "eslint"
+      }
+    },
+    "@nrwl/angular:application": {
+      "style": "scss",
+      "linter": "eslint",
+      "unitTestRunner": "jest",
+      "e2eTestRunner": "cypress"
+    },
+    "@nrwl/angular:library": {
+      "style": "scss",
+      "linter": "eslint",
+      "unitTestRunner": "jest"
+    },
+    "@nrwl/angular:component": {
+      "style": "scss"
+    }
+  },
+  "defaultProject": "todos-angular",
+  "projects": {
+    "todos-angular": {
+      "projectType": "application",
+      "root": "apps/todos-angular",
+      "sourceRoot": "apps/todos-angular/src",
+      "prefix": "my-world",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/todos-angular",
+            "index": "apps/todos-angular/src/index.html",
+            "main": "apps/todos-angular/src/main.ts",
+            "polyfills": "apps/todos-angular/src/polyfills.ts",
+            "tsConfig": "apps/todos-angular/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "apps/todos-angular/src/favicon.ico",
+              "apps/todos-angular/src/assets"
+            ],
+            "styles": ["apps/todos-angular/src/styles.scss"],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/todos-angular/src/environments/environment.ts",
+                  "with": "apps/todos-angular/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "todos-angular:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "todos-angular:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "todos-angular:build"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/todos-angular/src/**/*.ts",
+              "apps/todos-angular/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/todos-angular"],
+          "options": {
+            "jestConfig": "apps/todos-angular/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "todos-angular-e2e": {
+      "root": "apps/todos-angular-e2e",
+      "sourceRoot": "apps/todos-angular-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/todos-angular-e2e/cypress.json",
+            "tsConfig": "apps/todos-angular-e2e/tsconfig.e2e.json",
+            "devServerTarget": "todos-angular:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "todos-angular:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/todos-angular-e2e/**/*.{js,ts}"]
+          }
+        }
+      }
+    }
+  }
+}
