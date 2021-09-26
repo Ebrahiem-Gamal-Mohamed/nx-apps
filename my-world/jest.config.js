@@ -1,3 +1,5 @@
+const { getJestProjects } = require('@nrwl/jest');
+
 module.exports = {
-  projects: ['<rootDir>/apps/todos-angular'],
+  projects: [...getJestProjects(), '<rootDir>/apps/todos-angular'],
 };

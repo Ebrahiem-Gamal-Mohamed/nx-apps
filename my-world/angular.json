@@ -46,13 +46,18 @@
             "main": "apps/todos-angular/src/main.ts",
             "polyfills": "apps/todos-angular/src/polyfills.ts",
             "tsConfig": "apps/todos-angular/tsconfig.app.json",
-            "aot": true,
             "assets": [
               "apps/todos-angular/src/favicon.ico",
               "apps/todos-angular/src/assets"
             ],
             "styles": ["apps/todos-angular/src/styles.scss"],
-            "scripts": []
+            "scripts": [],
+            "vendorChunk": true,
+            "extractLicenses": false,
+            "buildOptimizer": false,
+            "sourceMap": true,
+            "optimization": false,
+            "namedChunks": true
           },
           "configurations": {
             "production": {
@@ -82,7 +87,8 @@
                 }
               ]
             }
-          }
+          },
+          "defaultConfiguration": ""
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
@@ -108,7 +114,8 @@
               "apps/todos-angular/src/**/*.ts",
               "apps/todos-angular/src/**/*.html"
             ]
-          }
+          },
+          "outputs": ["{options.outputFile}"]
         },
         "test": {
           "builder": "@nrwl/jest:jest",
@@ -142,7 +149,8 @@
           "builder": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": ["apps/todos-angular-e2e/**/*.{js,ts}"]
-          }
+          },
+          "outputs": ["{options.outputFile}"]
         }
       }
     }
