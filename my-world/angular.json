@@ -44,7 +44,7 @@
       }
     }
   },
-  "defaultProject": "todos-angular",
+  "defaultProject": "tic-tac-toe",
   "projects": {
     "tic-tac-toe": {
       "root": "apps/tic-tac-toe",
