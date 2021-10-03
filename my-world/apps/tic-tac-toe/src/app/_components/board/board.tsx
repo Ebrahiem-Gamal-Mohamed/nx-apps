@@ -6,41 +6,40 @@ import './board.scss';
 /* eslint-disable-next-line */
 export interface BoardProps {
   squares: string[] | null[];
-  onClick: (i: number) => void
+  onClick: (i: number) => void;
 }
 
 export class Board extends Component<BoardProps> {
-
   renderSquare(i: number) {
     return (
-      <Square 
+      <Square
+        key={i}
         value={this.props.squares[i]}
-        onClick={() => this.props.onClick(i)} />
+        onClick={() => this.props.onClick(i)}
+      />
     );
   }
 
   render() {
+    const length = 3;
     return (
       <div className="board">
-        <div className="board-row flex">
-          {this.renderSquare(0)}
-          {this.renderSquare(1)}
-          {this.renderSquare(2)}
-        </div>
-        <div className="board-row flex">
-          {this.renderSquare(3)}
-          {this.renderSquare(4)}
-          {this.renderSquare(5)}
-        </div>
-        <div className="board-row flex">
-          {this.renderSquare(6)}
-          {this.renderSquare(7)}
-          {this.renderSquare(8)}
-        </div>
+        {Array(length)
+          .fill(null)
+          .map((_, row) => {
+            return (
+              <div key={row} className="board-row flex">
+                {Array(length)
+                  .fill(null)
+                  .map((_, col) => {
+                    return this.renderSquare(length * row + col);
+                  })}
+              </div>
+            );
+          })}
       </div>
     );
   }
-
 }
 
 export default Board;

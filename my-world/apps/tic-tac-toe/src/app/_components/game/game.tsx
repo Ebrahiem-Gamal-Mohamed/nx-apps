@@ -8,13 +8,13 @@ import './game.scss';
 export interface GameProps {}
 
 export interface Square {
-  squares: string[] | null[]
+  squares: string[] | null[];
 }
 
 export interface State {
-  history: Square[],
-  xIsNext: boolean,
-  stepNumber: number
+  history: Square[];
+  xIsNext: boolean;
+  stepNumber: number;
 }
 
 export class Game extends Component<GameProps, State> {
@@ -22,21 +22,25 @@ export class Game extends Component<GameProps, State> {
   constructor(props: GameProps) {
     super(props);
     this.state = {
-      history: [{
-        squares: Array(9).fill(null),
-      }],
+      history: [
+        {
+          squares: Array(9).fill(null),
+        },
+      ],
       xIsNext: true,
-      stepNumber: 0
-    }
+      stepNumber: 0,
+    };
   }
 
   initGameBoard() {
     this.setState({
-      history: [{
-        squares: Array(9).fill(null),
-      }],
+      history: [
+        {
+          squares: Array(9).fill(null),
+        },
+      ],
       xIsNext: true,
-      stepNumber: 0
+      stepNumber: 0,
     });
   }
 
@@ -47,11 +51,11 @@ export class Game extends Component<GameProps, State> {
     if (this.winner || updatedSquares[i]) {
       return;
     }
-    updatedSquares[i] = this.state.xIsNext ? "X" : "O";
+    updatedSquares[i] = this.state.xIsNext ? 'X' : 'O';
     this.setState({
-      history: [...history, {squares: updatedSquares}],
+      history: [...history, { squares: updatedSquares }],
       xIsNext: !this.state.xIsNext,
-      stepNumber: history.length
+      stepNumber: history.length,
     });
   }
 
@@ -61,9 +65,9 @@ export class Game extends Component<GameProps, State> {
 
   jumpTo(stepNumber: number) {
     this.setState({
-      xIsNext: (stepNumber % 2) === 0,
-      stepNumber: stepNumber
-    })
+      xIsNext: stepNumber % 2 === 0,
+      stepNumber: stepNumber,
+    });
   }
 
   render() {
@@ -79,7 +83,7 @@ export class Game extends Component<GameProps, State> {
           <button onClick={() => this.jumpTo(move)}>{desc}</button>
         </li>
       );
-    })
+    });
 
     if (this.winner) {
       boardStatus = `The winner is ${this.winner}`;
@@ -90,14 +94,19 @@ export class Game extends Component<GameProps, State> {
     return (
       <div className="game">
         <div className="game-board">
-          <Board 
-          squares={currentSquares.squares}
-          onClick={(i) => this.handleClick(i)} />
+          <Board
+            squares={currentSquares.squares}
+            onClick={(i) => this.handleClick(i)}
+          />
         </div>
         <div className="game-info">
           <div className="board-status">{boardStatus}</div>
-          <ol>{moves}</ol>
-          <button className="reset-game-btn" onClick={() => this.playAgain()}>Play Again!</button>
+          {moves?.length && <ol>{moves}</ol>}
+          {this.winner && (
+            <button className="reset-game-btn" onClick={() => this.playAgain()}>
+              Play Again!
+            </button>
+          )}
         </div>
       </div>
     );
