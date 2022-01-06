@@ -80,7 +80,7 @@ export class Game extends Component<GameProps, State> {
       const desc = move ? `Go to Move #${move}` : `Go to game start.`;
       return (
         <li key={move}>
-          <button onClick={() => this.jumpTo(move)}>{desc}</button>
+          <button className="btn" onClick={() => this.jumpTo(move)}>{desc}</button>
         </li>
       );
     });
