@@ -35,7 +35,7 @@ export class App extends Component {
             </li>
           </ul>
         </div>
-        <Route
+        {/* <Route
           path="/"
           exact
           render={() => (
@@ -44,7 +44,7 @@ export class App extends Component {
               <Link to="/page-2">Click here for page 2.</Link>
             </div>
           )}
-        />
+        /> */}
         {/* END: routes */}
       </div>
     );
