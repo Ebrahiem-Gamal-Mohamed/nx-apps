@@ -45,8 +45,15 @@
                   "maximumError": "1mb"
                 }
               ]
+            },
+            "development": {
+              "extractLicenses": false,
+              "optimization": false,
+              "sourceMap": true,
+              "vendorChunk": true
             }
-          }
+          },
+          "defaultConfiguration": "production"
         },
         "serve": {
           "builder": "@nrwl/web:dev-server",
@@ -58,8 +65,12 @@
             "production": {
               "buildTarget": "tic-tac-toe:build:production",
               "hmr": false
+            },
+            "development": {
+              "buildTarget": "tic-tac-toe:build:development"
             }
-          }
+          },
+          "defaultConfiguration": "development"
         },
         "lint": {
           "builder": "@nrwl/linter:eslint",
@@ -72,7 +83,7 @@
           "builder": "@nrwl/jest:jest",
           "outputs": ["coverage/apps/tic-tac-toe"],
           "options": {
-            "jestConfig": "apps/tic-tac-toe/jest.config.js",
+            "jestConfig": "apps/tic-tac-toe/jest.config.ts",
             "passWithNoTests": true
           }
         }
@@ -197,7 +208,7 @@
           "builder": "@nrwl/jest:jest",
           "outputs": ["coverage/apps/todos-angular"],
           "options": {
-            "jestConfig": "apps/todos-angular/jest.config.js",
+            "jestConfig": "apps/todos-angular/jest.config.ts",
             "passWithNoTests": true
           }
         }
